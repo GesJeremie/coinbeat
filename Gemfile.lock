@@ -64,6 +64,8 @@ GEM
       uber (< 0.2.0)
     domain_name (0.5.20170404)
       unf (>= 0.0.5, < 1.0.0)
+    dragula-rails (3.7.0)
+      railties (>= 3.1)
     dry-configurable (0.7.0)
       concurrent-ruby (~> 1.0)
     dry-container (0.6.0)
@@ -263,6 +265,7 @@ DEPENDENCIES
   bcrypt
   bullet
   byebug
+  dragula-rails
   dry-validation
   httparty
   jbuilder (~> 2.5)

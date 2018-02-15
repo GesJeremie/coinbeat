@@ -38,12 +38,14 @@ gem 'dry-validation'
 # Encrypt password
 gem 'bcrypt'
 
+# Parse HTML and XML
+gem 'nokogiri'
+
 # Front-end
 gem 'avalanche-rails', '~> 1.2.0'
 gem 'lodash-rails'
 gem 'vuejs-rails'
-
-gem 'nokogiri'
+gem 'dragula-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

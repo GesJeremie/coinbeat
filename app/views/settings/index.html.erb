@@ -7,8 +7,9 @@
 
       <p class="settings__label">Show the prices in the following currency:</p>
 
-        <div class="grid grid--left">
+      <div class="grid grid--left">
 
+        <div class="settings__currencies">
           <% @currencies.each do |currency| %>
             <component-settings-currency v-cloak inline-template
               prop-currency="<%= currency.to_json %>"
@@ -32,8 +33,32 @@
               </div>
             </component-settings-currency>
           <% end %>
-
         </div>
+
+      </div>
+
+      <p class="settings__label">Drag and drop the items below to set the order of your folio:</p>
+
+     <component-settings-order v-cloak inline-template
+        prop-folio-crypto-currencies="<%= @folio_crypto_currencies.to_json(include: [:crypto_currency]) %>"
+      >
+        <div v-for="folioCryptoCurrency in folioCryptoCurrencies" class=settings__order-item"">
+          {{folioCryptoCurrency.crypto_currency.name}}
+        </p>
+      </component-settings-order>
+
+      <!--
+      <div class="settings__order" v-dragula="container" bag="first-bag">
+        <% @folio_crypto_currencies.each_with_index do |folio_crypto_currency, index| %>
+          <div class="settings__order-item">
+            <div class="settings__order-item-drag"><i class="icon icon-list"></i></div>
+            <div class="settings__order-item-index"><%= index+1 %>.</div>
+            <div class="settings__order-item-logo"><%= image_tag(folio_crypto_currency.crypto_currency.media.reverse.chop.reverse)   %></div>
+            <div class="settings__order-item-name"><%= folio_crypto_currency.crypto_currency.name %></div>
+          </div>
+        <% end %>
+      </div>
+    -->
 
     </div>
   </div>
