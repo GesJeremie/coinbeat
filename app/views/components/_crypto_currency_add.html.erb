@@ -1,0 +1,14 @@
+<component-crypto-currency-add
+  v-cloak
+  inline-template
+  prop-crypto-currencies="<%= crypto_currencies.to_json %>"
+>
+  <%= form_tag(controller:  'folio_crypto_currency', action: 'create') %>
+    <div class="coins-add__center">
+      <component-select v-model="selected" :options="options" class="coins-add__select"></component-select>
+
+      <input type="hidden" name="crypto_currency_id" :value="selected.value"/>
+      <button type="submit" class="button button--primary">Add Asset</button>
+    </div>
+  </form>
+</component-crypto-currency-add>

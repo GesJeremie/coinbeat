@@ -1,0 +1,10 @@
+<component-folio v-cloak inline-template
+    prop-currency="<%= folio.currency.to_json %>"
+>
+    <div class="folio">
+        <div class="folio__total">{{currency.symbol}}{{humanizePrice | formatCurrency}}</div>
+        <div class="folio__title">Total value of your folio</div>
+
+        <div class="folio__updated">Updated {{updatedSeconds}} seconds ago</div>
+    </div>
+</component-folio>

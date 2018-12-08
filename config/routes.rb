@@ -14,7 +14,5 @@ Rails.application.routes.draw do
   resources :settings,                only: [:index]
   resources :settings_currency,       only: [:create]
   resources :support_us,              only: [:index]
-  resources :import_icons,            only: [:index]
-
 end
 

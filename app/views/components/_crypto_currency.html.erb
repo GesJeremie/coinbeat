@@ -1,0 +1,55 @@
+<component-crypto-currency v-cloak inline-template
+    prop-crypto-currency="<%= folio_crypto_currency.crypto_currency.to_json %>"
+    prop-folio-crypto-currency="<%= folio_crypto_currency.to_json %>"
+    prop-folio-currency="<%= folio_crypto_currency.folio.currency.to_json %>"
+>
+    <div class="grid__cell grid__cell--100 grid__cell--50-at-medium grid__cell--33-at-wide grid__cell--25-at-x-wide" v-match-heights="{el: ['.coins__item']}">
+      <div class="coins__item">
+        <div class="coins__item-name">
+          <% if folio_crypto_currency.crypto_currency.media.present? %>
+            <%- # image_tag(folio_crypto_currency.crypto_currency.media.reverse.chop.reverse, class: 'coins__item-name-media') %>
+          <% end %>
+          <span class="coins__item-name-name">{{cryptoCurrency.name}}</span>
+          <span class="coins__item-name-symbol">{{cryptoCurrency.symbol}}</span>
+        </div>
+
+        <div v-bind:class="{ 'coins__item-price': true, 'coins__item-price--up': showClassPriceUp, 'coins__item-price--down': showClassPriceDown }">
+          {{folioCurrency.symbol}}{{priceHolding | formatCurrency}}
+        </div>
+
+        <div class="coins__item-hold">
+          Holding: <input v-on:change="onChangeHolding" v-model="folioCryptoCurrency.holding" :value="folioCryptoCurrency.holding" type="number" class="coins__item-hold-input" min="0">
+        </div>
+
+        <div class="coins__item-unit">
+          <br/>
+          1 {{cryptoCurrency.symbol}} = {{folioCurrency.symbol}}{{cryptoCurrency.price | formatCurrency}}
+        </div>
+
+        <div class="coins__item-arrow">
+        </div>
+
+        <div class="coins__item-actions">
+          <%= render 'components/crypto_currency_actions', folio_crypto_currency: folio_crypto_currency %>
+        </div>
+
+        <div class="coins__item-stats">
+          <div class="grid grid--center">
+            <div class="grid__cell grid__cell--50">
+              <div class="coins__item-stats-stat coins__item-stats-stat--low">
+                <span>Low 24h</span>
+                <span>{{folioCurrency.symbol}}{{priceHoldingLow24Hours | formatCurrency}}</span>
+              </div>
+            </div>
+
+            <div class="grid__cell grid__cell--50">
+              <div class="coins__item-stats-stat coins__item-stats-stat--high">
+                <span>High 24h</span>
+                <span>{{folioCurrency.symbol}}{{priceHoldingHigh24Hours | formatCurrency}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</component-crypto-currency>

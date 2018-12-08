@@ -3,7 +3,7 @@ class Tasks::SeedCurrencies < Trailblazer::Operation
   success  :seed
 
   def seed(options, params:, **)
-    puts "Seeding currencies ..."
+    puts 'Seeding currencies ...'
 
     currencies = [
       {code: 'USD',  symbol: '$',  name: 'United States Dollar'},

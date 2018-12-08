@@ -1,0 +1,43 @@
+<component-folio-save v-cloak inline-template
+    current-user="<%= user.to_json %>"
+    >
+
+  <div class="folio-save__center">
+
+    <div v-if="shouldRenderSubscribe">
+      <%= form_tag(controller: 'user_subscribe', action: 'create') %>
+        <p class="folio-save__description">You are about to save your folio!</p>
+
+        <div class="folio-save__inputs">
+          <input type="text" class="folio-save__input" name="email" placeholder="Email" />
+          <input type="password" class="folio-save__input" name="password" placeholder="Password"  />
+        </div>
+
+        <button type="submit" class="button button--primary">Save Folio</button>
+      </form>
+    </div>
+
+    <div v-if="shouldRenderConnect">
+      <%= form_tag(controller: 'user_connect', action: 'create') %>
+        <p class="folio-save__description">Log in to see your folio</p>
+        <div class="folio-save__inputs">
+          <input type="text" class="folio-save__input" name="email" placeholder="Email" />
+          <input type="password" class="folio-save__input" name="password" placeholder="Password"  />
+        </div>
+
+        <button type="submit" class="button button--primary">Log In</button>
+      </form>
+    </div>
+
+    <div v-if="isUser">
+      <%= form_tag(controller: 'user_disconnect', action: 'create') %>
+        <button type="submit" class="button button--large button--warning">Log out</button>
+      </form>
+    </div>
+
+    <div v-if="isAnonymous">
+      <a class="folio-save__link" v-on:click="onClickToggle">{{textToggle}}</a>
+    </div>
+
+  </div>
+</component-folio-save>

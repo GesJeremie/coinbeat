@@ -1,0 +1,28 @@
+<div class="header">
+  <div class="header__container">
+    <div class="grid grid--center">
+      <div class="grid__cell grid__cell--100 grid__cell--50-at-wide">
+        <div class="header__links header__links--left">
+          <% if !current_page?(root_path) %>
+          <a href="<%= root_path %>" class="button button--navigation"><i class="icon icon-back"></i> Back to folio</a>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="grid__cell grid__cell--100 grid__cell--50-at-wide">
+        <div class="header__links header__links--right">
+          <span class="header__connected-as">
+            <% if user.role == 'anonymous' %>
+            Connected as anonymous
+            <% else %>
+            Connected as <%= user.email %>
+            <% end %>
+          </span>
+          <a href="<%= settings_path %>" class="button button--navigation"><i class="icon icon-params"></i> Settings</a>
+          <a target="_blank" href="https://www.reddit.com/r/Moonbeat/" class="button button--navigation"><i class="icon icon-reddit"></i> Reddit</a>
+          <a href="<%= support_us_path %>" class="button button--navigation"><i class="icon icon-diamond"></i> Support us</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
