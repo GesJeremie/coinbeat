@@ -2,28 +2,35 @@ require 'test_helper'
 
 class FolioCryptoCurrencyCreateTest < ActiveSupport::TestCase
 
-  test 'create folio crypto currency' do
-    user = UserAnonymous::Create.()['model']
-    folio = Folio::Create.({}, 'current_user' => user)['model']
-    crypto_currency = CryptoCurrency.where(symbol: 'BTC').first
+  setup :user
+  setup :folio
+  setup :crypto_currency
 
-    result = FolioCryptoCurrency::Create.({crypto_currency_id: crypto_currency.id}, 'current_user' => user.reload)
-    model = result['model']
-
-    assert result.success?
-    assert model.crypto_currency_id == crypto_currency.id
-    assert model.folio_id == folio.id
+  def user
+    @user = UserAnonymous::Create.()['model']
   end
 
-  test 'can\'t add duplicate crypto currency' do
-    user = UserAnonymous::Create.()['model']
-    folio = Folio::Create.({}, 'current_user' => user)['model']
-    crypto_currency = CryptoCurrency.where(symbol: 'BTC').first
+  def folio
+    @folio = Folio::Create.({}, 'current_user' => @user)['model']
+  end
 
-    folio1 = FolioCryptoCurrency::Create.({crypto_currency_id: crypto_currency.id}, 'current_user' => user.reload)
-    folio2 = FolioCryptoCurrency::Create.({crypto_currency_id: crypto_currency.id}, 'current_user' => user.reload)
+  def crypto_currency
+    @crypto_currency = CryptoCurrency.where(symbol: 'BTC').first
+  end
 
-    assert folio1.success?
-    assert !folio2.success?
+  test 'create folio crypto currency' do
+    folio = FolioCryptoCurrency::Create.({crypto_currency_id: @crypto_currency.id}, 'current_user' => @user.reload)
+
+    assert folio.success?
+    assert_equal folio['model'].crypto_currency_id, @crypto_currency.id
+    assert_equal folio['model'].folio_id, @folio.id
+  end
+
+  test 'cannot add duplicate crypto currency' do
+    folio = FolioCryptoCurrency::Create.({crypto_currency_id: @crypto_currency.id}, 'current_user' => @user.reload)
+    duplicated_folio = FolioCryptoCurrency::Create.({crypto_currency_id: @crypto_currency.id}, 'current_user' => @user.reload)
+
+    assert folio.success?
+    refute duplicated_folio.success?
   end
 end

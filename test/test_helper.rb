@@ -14,18 +14,12 @@ class ActiveSupport::TestCase
   fixtures :all
 
   def self.prepare
-    # Add code that needs to be executed before test suite start
-  end
-  prepare
-
-  def setup
     CryptoCurrency.create(symbol: 'BTC', name: 'Bitcoin')
     CryptoCurrency.create(symbol: 'STR', name: 'Stellar')
     Currency.create(code: 'EUR', name: 'Euro', symbol: '€')
     Currency.create(code: 'USD', name: 'United States Dollar', symbol: '$')
-
-    # Add code that need to be executed before each test
   end
+  prepare
 
   def teardown
     # Add code that need to be executed after each test
