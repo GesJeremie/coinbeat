@@ -14,7 +14,7 @@ class UserSubscribeCreateTest < ActiveSupport::TestCase
     assert model.role = 'user'
   end
 
-  test 'can\'t subscribe a  roler user' do
+  test 'cannot subscribe a  roler user' do
     user = UserAnonymous::Create.()['model']
 
     # Convert to role user
