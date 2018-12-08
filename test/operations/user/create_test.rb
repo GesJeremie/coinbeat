@@ -2,29 +2,32 @@ require 'test_helper'
 
 class UserCreateTest < ActiveSupport::TestCase
 
+  def create_user
+    User::Create.(email: 'hello@example.com', password: 'fakePassword')
+  end
+
   test 'create user' do
-    result = User::Create.(email: 'hello@example.com', password: 'fakePassword')
-    model = result['model']
+    result = create_user
+    user = result['model']
 
     assert result.success?
-    assert model.email.present?
-    assert model.password.present?
-    assert model.token.present?
+    assert user.email.present?
+    assert user.password.present?
+    assert user.token.present?
   end
 
   test 'password is encrypted' do
-    result = User::Create.(email: 'hello@example.com', password: 'fakePassword')
-    model = result['model']
+    result = create_user
+    user = result['model']
 
-    assert model.password != 'fakePassword'
+    refute_equal(user.password, 'fakePassword')
   end
 
   test 'cannot create user with same email' do
-    user1 = User::Create.(email: 'hello@example.com', password: 'fakePassword')
-    user2 = User::Create.(email: 'hello@example.com', password: 'fakePassword')
+    user = create_user
+    duplicated_user = create_user
 
-    assert user1.success?
-    assert !user2.success?
+    assert user.success?
+    refute duplicated_user.success?
   end
-
 end
