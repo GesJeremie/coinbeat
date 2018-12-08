@@ -2,8 +2,14 @@ require 'test_helper'
 
 class FolioCreateTest < ActiveSupport::TestCase
 
+  setup :user
+
+  def user
+    @user = UserAnonymous::Create.()['model']
+  end
+
   test 'create folio' do
-    result = Folio::Create.({}, 'current_user' => UserAnonymous::Create.()['model'])
+    result = Folio::Create.({}, 'current_user' => @user)
     model = result['model']
 
     assert result.success?
@@ -12,13 +18,11 @@ class FolioCreateTest < ActiveSupport::TestCase
   end
 
   test 'no duplicate folio' do
-    user = UserAnonymous::Create.()['model']
+    folio = Folio::Create.({}, 'current_user' => @user)
+    duplicated_folio = Folio::Create.({}, 'current_user' => @user)
 
-    folio1 = Folio::Create.({}, 'current_user' => user)
-    folio2 = Folio::Create.({}, 'current_user' => user)
-
-    assert folio1.success?
-    assert !folio2.success?
+    assert folio.success?
+    refute duplicated_folio.success?
   end
 
 end
